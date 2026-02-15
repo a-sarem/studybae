@@ -410,15 +410,46 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   align-items: center;
 }
 
-/* Right-side image panel */
+/* Keep your original .main-image container */
 .main-image {
   flex: 1;
   display: flex;
-  align-items: center;      /* vertical center */
-  justify-content: center;  /* horizontal center */
-  padding: 40px;            /* space from edges */
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
   height: 100vh;
   box-sizing: border-box;
+  position: relative; /* Necessary to contain the absolute images */
+}
+
+/* Updated image styling for stacking and fading */
+.fade-img {
+  width: 80%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 40px;
+  object-fit: cover;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  
+  /* Stacking and Fading Logic */
+  position: absolute;      /* Stacks images on top of each other */
+  opacity: 0;             /* Hides images by default */
+  animation: fade-animation 20s infinite;
+}
+
+/* Individual delays so they fade in one after another */
+.fade-img:nth-child(1) { animation-delay: 0s; }
+.fade-img:nth-child(2) { animation-delay: 4s; }
+.fade-img:nth-child(3) { animation-delay: 8s; }
+.fade-img:nth-child(4) { animation-delay: 12s; }
+.fade-img:nth-child(5) { animation-delay: 16s; }
+
+@keyframes fade-animation {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; } /* Fade in quickly */
+  33%  { opacity: 1; } /* Stay visible */
+  43%  { opacity: 0; } /* Fade out */
+  100% { opacity: 0; } /* Stay hidden until next loop */
 }
 
 .main-image img {
