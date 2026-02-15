@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Bae</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+  <div class="container topbar__inner">
+    <div class="brand">Study Bae</div>
+    <nav class="nav">
+      <a href="profile.html" class="nav__link">
+        <img src="profile_pic.png" alt="Profile" class="profile-icon">
+      </a>
+      
+      <a href="index.html" class="nav__link nav__link--button">Home Page</a>
+      <a href="invites.html" class="nav__link nav__link--button">My Invites</a>
+      <a href="matches.html" class="nav__link nav__link--button">Browse matches</a>
+      <a href="product.html" class="nav__link nav__link--button">Products</a>
+    </nav>
+  </div>
+</header>
+
+<div id="profileView" style="display:none;">
+  <h2>My Profile</h2>
+  <div id="profileCard" class="profile-card"></div>
+
+  <div class="profile-actions">
+    <button id="editProfile" class="btn btn--primary" type="button">Edit profile</button>
+    <button id="logoutProfile" class="btn btn--ghost" type="button">Clear profile</button>
+  </div>
+</div>
+
+<div id="matchesSection" style="display:none; margin-top: 40px;">
+  <h2 id="matchHeading" style="margin-bottom: 20px;">Matches for you</h2>
+  <div id="matchesGrid" class="grid" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <script>
+  // 1. Data: A list of all available students
+  const allStudents = [
+    { name: "Maya J.", initials: "MJ", course: "IT 105", time: "Evening", style: "Talk-through problems", goal: "homework help + practice problems", bio: "Likes to compare solutions step by step." },
+    { name: "Aiden L.", initials: "AL", course: "Calculus", time: "Morning", style: "Quiet & focused", goal: "exam prep + weekly review", bio: "Prefers quiet sessions, then a short recap." },
+    { name: "Sofia R.", initials: "SR", course: "Biology", time: "Weekends", style: "Flashcards", goal: "memorize terms fast", bio: "Flashcards & quick quizzes. Likes short rounds." },
+    { name: "Kai T.", initials: "KT", course: "Psych", time: "Afternoon", style: "Group energy", goal: "project partner + accountability", bio: "Brings structure and likes check-ins." }
+  ];
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const profileForm = document.getElementById('profileForm');
+
+    profileForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // 2. Get User Input
+      const userName = document.getElementById('name').value;
+      const userCourse = document.getElementById('course').value;
+
+      // 3. Filter Matches: Find students in the SAME course
+      const filteredMatches = allStudents.filter(s => s.course.toLowerCase() === userCourse.toLowerCase());
+
+      // 4. Update the Summary Card
+      document.getElementById('profileCard').innerHTML = `
+        <div class="card" style="padding: 20px; margin-bottom: 20px;">
+          <h3>Welcome, ${userName}!</h3>
+          <p>We found <strong>${filteredMatches.length}</strong> partners for <strong>${userCourse}</strong>.</p>
+        </div>
+      `;
+
+      // 5. Generate Match Cards (Replicating your design)
+      const grid = document.getElementById('matchesGrid');
+      grid.innerHTML = ""; // Clear old matches
+
+      filteredMatches.forEach(match => {
+        grid.innerHTML += `
+          <div class="card" style="width: 280px; padding: 20px; border-radius: 20px; background: #fff1f6; text-align: center;">
+            <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px;">
+               <div style="background:#eee; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; font-weight:bold;">${match.initials}</div>
+               <strong>${match.name}</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: #666;">Goal: ${match.goal}</p>
+            <div style="display:flex; justify-content:center; gap:10px; margin: 10px 0;">
+              <span style="background:white; padding:4px 8px; border-radius:10px; font-size:0.7rem;">${match.course}</span>
+              <span style="background:white; padding:4px 8px; border-radius:10px; font-size:0.7rem;">${match.time}</span>
+            </div>
+            <p style="font-size: 0.8rem; height: 40px;">${match.bio}</p>
+            <button class="btn btn--primary" onclick="window.location.href='matches.html'" style="width:100%; border-radius:20px; margin-top:10px;">Browse Matches</button>
+          </div>
+        `;
+      });
+
+      // 6. Final UI Switch
+document.getElementById('profile').style.display = 'none';
+
+// Target the sections and move them 10% from the left edge
+const profileView = document.getElementById('profileView');
+profileView.style.display = 'block';
+profileView.style.marginLeft = '10%'; 
+
+const matchesSection = document.getElementById('matchesSection');
+matchesSection.style.display = 'block';
+matchesSection.style.marginLeft = '10%'; 
+
+// This hides your login form section
+document.querySelector('section:has(#loginForm)').style.display = 'none';
+
+    });
+  });
+</script>
+
+  </div>
+</div>
+
+
+
+
+    <section id="profile" class="section">
+      <div class="container">
+        <div class="section__header">
+          <h2>Create your profile</h2>
+          <p>Tell us a little bit about yourself!</p>
+        </div>
+
+        <form class="form card" id="profileForm">
+  <div class="grid">
+
+    <!-- Name -->
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="e.g., Emma" required />
+    </div>
+
+    <!-- Email (FIXED) -->
+    <div class="field field--full">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="e.g., student@university.edu" required />
+    </div>
+
+    
+
+    <!-- Course -->
+    <div class="field">
+      <label for="course">Course / Subject</label>
+      <input id="course" name="course" type="text" placeholder="e.g., Calculus, IT 105" required />
+    </div>
+
+    <!-- Availability -->
+    <div class="field">
+      <label for="availability">Availability</label>
+      <select id="availability" name="availability" required>
+        <option value="" disabled selected>Select one</option>
+        <option>Morning</option>
+        <option>Afternoon</option>
+        <option>Evening</option>
+        <option>Weekends</option>
+      </select>
+    </div>
+
+    <!-- Study Style -->
+    <div class="field">
+      <label for="style">Study style</label>
+      <select id="style" name="style" required>
+        <option value="" disabled selected>Select one</option>
+        <option>Quiet & focused</option>
+        <option>Talk-through problems</option>
+        <option>Flashcards</option>
+        <option>Group energy</option>
+      </select>
+    </div>
+
+    <!-- Goal -->
+    <div class="field field--full">
+      <label for="goal">Goal</label>
+      <input id="goal" name="goal" type="text" placeholder="e.g., exam prep, homework help, project partner" />
+    </div>
+
+    <!-- Bio -->
+    <div class="field field--full">
+      <label for="bio">Short bio</label>
+      <textarea id="bio" name="bio" rows="4" placeholder="What helps you learn best?"></textarea>
+    </div>
+
+    <!-- Password (FIXED) -->
+    <div class="field field--full">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" placeholder="Enter your password" required />
+    </div>
+
+  </div>
+
+  <div class="form__actions">
+    <button class="btn btn--primary" type="submit">Save & browse</button>
+    <button class="btn btn--primary" id="resetProfile" type="reset">Reset profile</button>
+  </div>
+</form>
+    <section id="profile" class="section">
+      <div class="container">
+        <div class="section__header">
+          <h2>Login</h2>
+          <p>Jump back in to find your study bae 💕</p>
+        </div>
+<form class="form card" id="loginForm">
+  <div class="grid">
+
+    <div class="field field--full">
+      <label for="loginEmail">Email</label>
+      <input
+        id="loginEmail"
+        name="email"
+        type="email"
+        placeholder="e.g., student@university.edu"
+        required
+      />
+    </div>
+
+    <div class="field field--full">
+      <label for="loginPassword">Password</label>
+      <input
+        id="loginPassword"
+        name="password"
+        type="password"
+        placeholder="Enter your password"
+        required
+      />
+    </div>
+
+  </div>
+
+  <div class="form__actions">
+    <button class="btn btn--primary" type="submit">Login</button>
+  </div>
+</form>
+  </div>
+</section>
+
+
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>StudyBae™</span>
+        <span class="footer__dot"></span>
+        <span></span>
+      </div>
+    </footer>
+  </main>
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/app.js"></script>
+  
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const profileForm = document.getElementById('profileForm');
+    
+    if (!profileForm) {
+      console.error("Error: Could not find the form with ID 'profileForm'");
+      return;
+    }
+
+    profileForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+    
+      document.getElementById('logoutProfile').addEventListener('click', () => {
+  if (confirm("Are you sure you want to clear your profile?")) {
+    location.reload(); // Restarts the app and clears current view
+  }
+});
+
+document.getElementById('editProfile').addEventListener('click', () => {
+  // Hide the profile and matches views
+  document.getElementById('profileView').style.display = 'none';
+  document.getElementById('matchesSection').style.display = 'none';
+
+  // Show the original creation form
+  document.getElementById('profile').style.display = 'block';
+  
+  // Optional: If you had a separate login form container hidden, show it too
+  const loginSection = document.querySelector('section:has(#loginForm)');
+  if (loginSection) loginSection.style.display = 'block';
+});
+
+      
+      // 1. Get the values the user typed into the form
+      const nameValue = document.getElementById('name').value;
+      const courseValue = document.getElementById('course').value;
+      const goalValue = document.getElementById('goal').value;
+
+      // 2. Inject that info into the Profile Card (The summary)
+      document.getElementById('profileCard').innerHTML = `
+        <div style="padding: 20px; color: #333; background: white; border-radius: 8px;">
+          <h3>Welcome, ${nameValue}!</h3>
+          <p><strong>Studying:</strong> ${courseValue}</p>
+          <p><strong>Goal:</strong> ${goalValue}</p>
+        </div>
+      `;
+
+      // 3. Update the Matches heading with the user's specific course
+      const matchesSection = document.getElementById('matchesSection');
+      matchesSection.querySelector('h2').innerText = `Potential Matches for ${courseValue}`;
+
+      // 4. Toggle the views (Hide form, Show Profile & Matches)
+      document.getElementById('profile').style.display = 'none';
+      document.getElementById('profileView').style.display = 'block'; 
+      matchesSection.style.display = 'block';
+
+      console.log("Profile created and summary displayed!");
+    });
+  });
+</script>
+<script>
+  // 1. Data: A list of students (this replicates your matches.html data)
+  const allStudents = [
+    { name: "Maya J.", initials: "MJ", course: "IT 105", time: "Evening", style: "Talk-through problems", goal: "homework help + practice problems", bio: "Likes to compare solutions step by step and keep notes organized." },
+    { name: "Aiden L.", initials: "AL", course: "Calculus", time: "Morning", style: "Quiet & focused", goal: "exam prep + weekly review", bio: "Prefers quiet sessions, then a short recap at the end." },
+    { name: "Sofia R.", initials: "SR", course: "Biology", time: "Weekends", style: "Flashcards", goal: "memorize terms fast", bio: "Flashcards & quick quizzes. Likes short, focused rounds." },
+    { name: "Kai T.", initials: "KT", course: "Psych", time: "Afternoon", style: "Group energy", goal: "project partner + accountability", bio: "Brings structure, likes check-ins, and keeps momentum up." }
+  ];
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const profileForm = document.getElementById('profileForm');
+
+    profileForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // 2. Capture the User's Data
+      const userName = document.getElementById('name').value;
+      const userCourse = document.getElementById('course').value;
+      const userGoal = document.getElementById('goal').value;
+
+      // 3. Filter for matching study baes
+      const filteredMatches = allStudents.filter(s => s.course.toLowerCase() === userCourse.toLowerCase());
+
+      // 4. Update the Profile Summary
+      document.getElementById('profileCard').innerHTML = `
+        <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #ffccdf;">
+          <h3 style="margin-top:0;">Welcome, ${userName}!</h3>
+          <p><strong>Course:</strong> ${userCourse}</p>
+          <p><strong>Goal:</strong> ${userGoal}</p>
+        </div>
+      `;
+
+      // 5. Generate the Match Cards (Replicating your design)
+      const grid = document.getElementById('matchesGrid');
+      grid.innerHTML = ""; // Clear placeholders
+
+
+      filteredMatches.forEach(match => {
+        grid.innerHTML += `
+          <div class="card" style="width: 260px; padding: 20px; border-radius: 20px; background: #fff1f6; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
+               <div style="background:white; border-radius:50%; width:45px; height:45px; display:flex; align-items:center; justify-content:center; font-weight:bold; border: 1px solid #ffd1e1;">${match.initials}</div>
+               <div>
+                 <strong style="display:block;">${match.name}</strong>
+                 <span style="font-size: 0.7rem; color: #888;">Goal: ${match.goal}</span>
+               </div>
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom: 15px;">
+              <span style="background:white; padding:4px 10px; border-radius:12px; font-size:0.75rem;">${match.course}</span>
+              <span style="background:white; padding:4px 10px; border-radius:12px; font-size:0.75rem;">${match.time}</span>
+            </div>
+            <p style="font-size: 0.8rem; color: #555; line-height: 1.4; margin-bottom: 15px;">${match.bio}</p>
+            <button class="btn btn--primary" onclick="window.location.href='matches.html'" style="width:100%; border-radius:20px; padding:8px;">Browse Matches</button>
+          </div>
+        `;
+      });
+
+      // 6. Switch Views
+      document.getElementById('profile').style.display = 'none'; // Hide registration
+      document.getElementById('profileView').style.display = 'block'; // Show profile
+      document.getElementById('matchesSection').style.display = 'block'; // Show matches
+      
+      // Also hide the login section if it exists
+      const loginSection = document.getElementById('loginForm')?.closest('.section');
+      if (loginSection) loginSection.style.display = 'none';
+    });
+  });
+</script>
+
+  </body>
+</html>
+

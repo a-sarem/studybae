@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matches • Study Bae</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Button states */
+    .btn--sent {
+      background-color: #9ca3af !important;
+      cursor: not-allowed !important;
+      opacity: 0.7;
+    }
+    
+    .btn--sent:hover {
+      background-color: #9ca3af !important;
+      transform: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container topbar__inner">
+    <div class="brand">Study Bae</div>
+    <nav class="nav">
+      <a href="profile.html" class="nav__link">
+        <img src="profile_pic.png" alt="Profile" class="profile-icon">
+      </a>
+      <a href="index.html" class="nav__link nav__link--button">Home Page</a>
+      <a href="invites.html" class="nav__link nav__link--button">My Invites</a>
+      <a href="matches.html" class="nav__link nav__link--button">Browse matches</a>
+      <a href="product.html" class="nav__link nav__link--button">Products</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+<div class="container">
+
+<div class="section__header section__header--row">
+  <div>
+    <h1 class="h2">Browse matches</h1>
+    <p class="muted">Filter by what matters. Invite in one click.</p>
+  </div>
+</div>
+
+<section class="cards">
+
+<!-- CARD 1 -->
+<article class="card profile">
+  <div class="profile__top">
+    <div class="avatar">MJ</div>
+    <div>
+      <h3 class="profile__name">Maya J.</h3>
+      <p class="muted">Goal: homework help + practice problems</p>
+    </div>
+  </div>
+
+  <div class="profile__tags">
+    <span class="pill">IT 105</span>
+    <span class="pill">Evening</span>
+    <span class="pill">Talk-through problems</span>
+  </div>
+
+  <p class="profile__bio">
+    Likes to compare solutions step-by-step and keep notes organized.
+  </p>
+
+  <button class="btn btn--primary btn--full js-invite"
+    data-name="Maya J."
+    data-course="IT 105"
+    data-time="Evening"
+    data-goal="homework help + practice problems"
+    data-bio="Likes to compare solutions step-by-step and keep notes organized."
+    data-tags="IT 105,Evening,Talk-through problems">
+    Send invite
+  </button>
+</article>
+
+<!-- CARD 2 -->
+<article class="card profile">
+  <div class="profile__top">
+    <div class="avatar">AL</div>
+    <div>
+      <h3 class="profile__name">Aiden L.</h3>
+      <p class="muted">Goal: exam prep + weekly review</p>
+    </div>
+  </div>
+
+  <div class="profile__tags">
+    <span class="pill">Calculus</span>
+    <span class="pill">Morning</span>
+    <span class="pill">Quiet & focused</span>
+  </div>
+
+  <p class="profile__bio">
+    Prefers quiet sessions, then a short recap at the end.
+  </p>
+
+  <button class="btn btn--primary btn--full js-invite"
+    data-name="Aiden L."
+    data-course="Calculus"
+    data-time="Morning"
+    data-goal="exam prep + weekly review"
+    data-bio="Prefers quiet sessions, then a short recap at the end."
+    data-tags="Calculus,Morning,Quiet & focused">
+    Send invite
+  </button>
+</article>
+
+<!-- CARD 3 -->
+<article class="card profile">
+  <div class="profile__top">
+    <div class="avatar">SR</div>
+    <div>
+      <h3 class="profile__name">Sofia R.</h3>
+      <p class="muted">Goal: memorize terms fast</p>
+    </div>
+  </div>
+
+  <div class="profile__tags">
+    <span class="pill">Biology</span>
+    <span class="pill">Weekends</span>
+    <span class="pill">Flashcards</span>
+  </div>
+
+  <p class="profile__bio">
+    Flashcards + quick quizzes. Likes short, focused rounds.
+  </p>
+
+  <button class="btn btn--primary btn--full js-invite"
+    data-name="Sofia R."
+    data-course="Biology"
+    data-time="Weekends"
+    data-goal="memorize terms fast"
+    data-bio="Flashcards + quick quizzes. Likes short, focused rounds."
+    data-tags="Biology,Weekends,Flashcards">
+    Send invite
+  </button>
+</article>
+
+<!-- CARD 4 -->
+<article class="card profile">
+  <div class="profile__top">
+    <div class="avatar">KT</div>
+    <div>
+      <h3 class="profile__name">Kai T.</h3>
+      <p class="muted">Goal: project partner + accountability</p>
+    </div>
+  </div>
+
+  <div class="profile__tags">
+    <span class="pill">Psych</span>
+    <span class="pill">Afternoon</span>
+    <span class="pill">Group energy</span>
+  </div>
+
+  <p class="profile__bio">
+    Brings structure, likes check-ins, and keeps momentum up.
+  </p>
+
+  <button class="btn btn--primary btn--full js-invite"
+    data-name="Kai T."
+    data-course="Psych"
+    data-time="Afternoon"
+    data-goal="project partner + accountability"
+    data-bio="Brings structure, likes check-ins, and keeps momentum up."
+    data-tags="Psych,Afternoon,Group energy">
+    Send invite
+  </button>
+</article>
+
+</section>
+</div>
+</main>
+
+<footer class="footer">
+<div class="container footer__inner">
+<span>StudyBae™</span>
+<span class="footer__dot"></span>
+</div>
+</footer>
+
+<!-- Toast Popup -->
+<div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Main App Script -->
+<script>
+// Toast notification function
+function showToast(message, duration = 3000) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('toast--show');
+  
+  setTimeout(() => {
+    toast.classList.remove('toast--show');
+  }, duration);
+}
+
+// Load sent invites from localStorage
+function getSentInvites() {
+  const invites = localStorage.getItem('sentInvites');
+  return invites ? JSON.parse(invites) : [];
+}
+
+// Save invite to localStorage
+function saveInvite(inviteData) {
+  const invites = getSentInvites();
+  invites.push({
+    ...inviteData,
+    timestamp: new Date().toISOString(),
+    id: Date.now()
+  });
+  localStorage.setItem('sentInvites', JSON.stringify(invites));
+}
+
+// Check if button was already clicked (for this session)
+function checkButtonStates() {
+  const buttons = document.querySelectorAll('.js-invite');
+  const sentInvites = getSentInvites();
+  
+  buttons.forEach(button => {
+    const name = button.dataset.name;
+    const alreadySent = sentInvites.some(invite => invite.name === name);
+    
+    if (alreadySent) {
+      button.classList.add('btn--sent');
+      button.textContent = 'Invite sent';
+      button.disabled = true;
+    }
+  });
+}
+
+// Handle invite button clicks
+document.addEventListener('DOMContentLoaded', () => {
+  // Check button states on page load
+  checkButtonStates();
+  
+  // Add click handlers to all invite buttons
+  const inviteButtons = document.querySelectorAll('.js-invite');
+  
+  inviteButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Prevent multiple clicks
+      if (this.disabled) return;
+      
+      // Get data from button
+      const inviteData = {
+        name: this.dataset.name,
+        course: this.dataset.course,
+        time: this.dataset.time,
+        goal: this.dataset.goal,
+        bio: this.dataset.bio,
+        tags: this.dataset.tags
+      };
+      
+      // Save to localStorage
+      saveInvite(inviteData);
+      
+      // Update button state
+      this.classList.add('btn--sent');
+      this.textContent = 'Invite sent';
+      this.disabled = true;
+      
+      // Show toast notification
+      showToast(`Thank you, your invite has been sent to ${inviteData.name}!`);
+    });
+  });
+});
+</script>
+
+</body>
+</html>

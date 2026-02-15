@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invites • Study Buddy</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+  <div class="container topbar__inner">
+    <div class="brand">Study Bae</div>
+    <nav class="nav">
+      <!-- Profile Icon (Now First) -->
+      <a href="profile.html" class="nav__link">
+        <img src="profile_pic.png" alt="Profile" class="profile-icon">
+      </a>
+      
+      <a href="index.html" class="nav__link nav__link--button">Home Page</a>
+      <a href="invites.html" class="nav__link nav__link--button">My Invites</a>
+      <a href="matches.html" class="nav__link nav__link--button">Browse matches</a>
+      <a href="product.html" class="nav__link nav__link--button">Products</a>
+    </nav>
+  </div>
+</header>
+
+  <main class="section">
+    <div class="container">
+      <div class="section__header section__header--row">
+        <div>
+          <h1 class="h2">My invites</h1>
+        </div>
+        <button class="btn btn--ghost" id="clearInvites" type="button">Clear all</button>
+      </div>
+
+      <div id="emptyState" class="card">
+        <h2 class="h3">No invites yet</h2>
+        <p class="muted">Go to Matches and send an invite to save it here.</p>
+        <a class="btn btn--primary" href="matches.html">Browse matches</a>
+      </div>
+
+      <section id="inviteList" class="cards" style="display:none;"></section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>StudyBae™</span>
+      <span class="footer__dot"></span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    // Toast notification function
+    function showToast(message, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('toast--show');
+      
+      setTimeout(() => {
+        toast.classList.remove('toast--show');
+      }, duration);
+    }
+
+    // Get invites from localStorage
+    function getSentInvites() {
+      const invites = localStorage.getItem('sentInvites');
+      return invites ? JSON.parse(invites) : [];
+    }
+
+    // Render invite list
+    function renderInvites() {
+      const invites = getSentInvites();
+      const emptyState = document.getElementById('emptyState');
+      const inviteList = document.getElementById('inviteList');
+
+      if (invites.length === 0) {
+        emptyState.style.display = 'block';
+        inviteList.style.display = 'none';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      inviteList.style.display = 'grid';
+
+      // Generate HTML for each invite
+      inviteList.innerHTML = invites.map((invite, index) => {
+        const tags = invite.tags ? invite.tags.split(',') : [];
+        const initials = invite.name.split(' ').map(n => n[0]).join('');
+        const date = new Date(invite.timestamp).toLocaleDateString();
+        
+        return `
+          <article class="card profile">
+            <div class="profile__top">
+              <div class="avatar">${initials}</div>
+              <div>
+                <h3 class="profile__name">${invite.name}</h3>
+                <p class="muted">Goal: ${invite.goal}</p>
+              </div>
+            </div>
+
+            <div class="profile__tags">
+              ${tags.map(tag => `<span class="pill">${tag.trim()}</span>`).join('')}
+            </div>
+
+            <p class="profile__bio">
+              ${invite.bio}
+            </p>
+
+            <div class="muted" style="font-size: 0.875rem; margin-top: 0.5rem;">
+              Invited on ${date}
+            </div>
+
+            <button class="btn btn--ghost btn--full remove-invite" data-id="${invite.id}" style="margin-top: 1rem;">
+              Remove invite
+            </button>
+          </article>
+        `;
+      }).join('');
+
+      // Add event listeners to remove buttons
+      document.querySelectorAll('.remove-invite').forEach(button => {
+        button.addEventListener('click', function() {
+          const id = parseInt(this.dataset.id);
+          removeInvite(id);
+        });
+      });
+    }
+
+    // Remove a single invite
+    function removeInvite(id) {
+      let invites = getSentInvites();
+      invites = invites.filter(invite => invite.id !== id);
+      localStorage.setItem('sentInvites', JSON.stringify(invites));
+      showToast('Invite removed');
+      renderInvites();
+    }
+
+    // Clear all invites
+    document.getElementById('clearInvites').addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all invites?')) {
+        localStorage.removeItem('sentInvites');
+        showToast('All invites cleared');
+        renderInvites();
+      }
+    });
+
+    // Load invites on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderInvites();
+    });
+  </script>
+</body>
+</html>
