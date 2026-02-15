@@ -345,22 +345,23 @@ document.getElementById('editProfile').addEventListener('click', () => {
         grid.innerHTML += `
           <div class="card" style="width: 260px; padding: 20px; border-radius: 20px; background: #fff1f6; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
             <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
-               <div style="background:white; border-radius:50%; width:45px; height:45px; display:flex; align-items:center; justify-content:center; font-weight:bold; border: 1px solid #ffd1e1;">${match.initials}</div>
-               <div>
-                 <strong style="display:block;">${match.name}</strong>
-                 <span style="font-size: 0.7rem; color: #888;">Goal: ${match.goal}</span>
-               </div>
+              <div style="background:white; border-radius:50%; width:45px; height:45px; display:flex; align-items:center; justify-content:center; font-weight:bold; border: 1px solid #ffd1e1;">${match.initials}</div>
+              <div>
+                <strong style="display:block;">${match.name}</strong>
+                <span style="font-size: 0.7rem; color: #888;">Goal: ${match.goal}</span>
+              </div>
             </div>
-            <div style="display:flex; gap:8px; margin-bottom: 15px;">
-              <span style="background:white; padding:4px 10px; border-radius:12px; font-size:0.75rem;">${match.course}</span>
-              <span style="background:white; padding:4px 10px; border-radius:12px; font-size:0.75rem;">${match.time}</span>
-            </div>
-            <p style="font-size: 0.8rem; color: #555; line-height: 1.4; margin-bottom: 15px;">${match.bio}</p>
-            <button class="btn btn--primary" style="width:100%; border-radius:20px; padding:8px;">Send invite</button>
+          <div style="display:flex; gap:8px; margin-bottom: 15px;">
+            <span style="background:white; padding:4px 10px; border-radius:12px; font-size:0.75rem;">${match.course}</span>
+            <span style="background:white; padding:4px 10px; border-radius:12px; font-size:0.75rem;">${match.time}</span>
+          </div>
+          <p style="font-size: 0.8rem; color: #555; line-height: 1.4; margin-bottom: 15px;">${match.bio}</p>
+          <button class="btn btn--primary" style="width:100%; border-radius:20px; padding:8px;"
+              onclick="this.textContent='Invite sent!'; this.disabled=true; this.style.opacity='0.6'; this.style.cursor='not-allowed';">Send invite
+            </button>
           </div>
         `;
       });
-
       // 6. Switch Views
       document.getElementById('profile').style.display = 'none'; // Hide registration
       document.getElementById('profileView').style.display = 'block'; // Show profile
