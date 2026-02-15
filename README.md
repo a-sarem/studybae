@@ -1,9 +1,7 @@
 # StudyBae
 
 # README
-This project was made for PatriotHacks/HackFax Hackathon 2026. Welcome to StudyBae, a website for students to find their study companion.
-
-[![Watch Video](thumbnail_url)]([vimeo_video_url](https://vimeo.com/1165158243?share=copy&fl=sv&fe=ci)
+This project was made for PatriotHacks/HackFax Hackathon 2026, created by Jacquelyn  Yeboah, Christabel Agyei, Arielle Dorism, and me. Welcome to StudyBae, a website for students to find their study companion.
 
 # Video
-[![Watch Video](thumbnail_url)]([vimeo_video_url](https://vimeo.com/1165158243?share=copy&fl=sv&fe=ci). 
+[![Watch Video](https://vumbnail.com)](https://vimeo.com/1165158243)
